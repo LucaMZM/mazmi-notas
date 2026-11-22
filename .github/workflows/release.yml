@@ -62,6 +62,7 @@ jobs:
             - macOS: `.dmg` (universal, Apple Silicon e Intel). Si macOS avisa la primera vez: Ajustes del Sistema → Privacidad y seguridad → Abrir igualmente.
             - Windows: `-setup.exe` (o `.msi`). En SmartScreen: Más información → Ejecutar de todas formas.
             - Linux: `.AppImage` (dale permiso de ejecución), `.deb` o `.rpm`.
+          tauriScript: npx tauri
           releaseDraft: true
           prerelease: false
           args: ${{ matrix.args }}

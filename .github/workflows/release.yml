@@ -1,0 +1,67 @@
+name: Release
+
+# Builds the installers on each operating system and attaches them to a draft release.
+# Push a tag like v0.4.0 (or run it by hand) and publish the draft once every build passed.
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - platform: macos-latest
+            args: --target universal-apple-darwin
+            rust-targets: aarch64-apple-darwin,x86_64-apple-darwin
+          - platform: windows-latest
+            args: ''
+            rust-targets: ''
+          - platform: ubuntu-22.04
+            args: ''
+            rust-targets: ''
+    runs-on: ${{ matrix.platform }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Linux system libraries
+        if: matrix.platform == 'ubuntu-22.04'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libwebkit2gtk-4.1-dev libappindicator3-dev librsvg2-dev patchelf
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: ${{ matrix.rust-targets }}
+
+      - uses: swatinem/rust-cache@v2
+        with:
+          workspaces: src-tauri -> target
+
+      - run: npm ci
+
+      - uses: tauri-apps/tauri-action@v0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tagName: v__VERSION__
+          releaseName: MazmiNotas v__VERSION__
+          releaseBody: |
+            Descarga el instalador de tu sistema más abajo. La app se instala vacía: cada persona tiene su propia biblioteca en su equipo.
+
+            - macOS: `.dmg` (universal, Apple Silicon e Intel). Si macOS avisa la primera vez: Ajustes del Sistema → Privacidad y seguridad → Abrir igualmente.
+            - Windows: `-setup.exe` (o `.msi`). En SmartScreen: Más información → Ejecutar de todas formas.
+            - Linux: `.AppImage` (dale permiso de ejecución), `.deb` o `.rpm`.
+          releaseDraft: true
+          prerelease: false
+          args: ${{ matrix.args }}

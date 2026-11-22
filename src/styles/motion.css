@@ -1,0 +1,50 @@
+/* Controls answer the press itself (a slight sink), not only the release. */
+button { transition: background-color 140ms ease, border-color 140ms ease, color 140ms ease, opacity 120ms ease, transform 160ms var(--ease-out); }
+button:active:not(:disabled) { transform: scale(.97); transition-duration: 140ms, 140ms, 140ms, 120ms, 60ms; }
+/* Short operations disable controls for a few milliseconds: only fade them if it lasts. */
+button:disabled:not(.never) { transition: background-color 140ms ease, border-color 140ms ease, color 140ms ease, opacity 180ms ease 280ms, transform 160ms var(--ease-out); }
+.new-note, .welcome .primary { transition: transform 180ms var(--ease-out), background-color 140ms ease, box-shadow 180ms ease; }
+.new-note:active:not(:disabled), .welcome .primary:active:not(:disabled) { transform: scale(.985); transition-duration: 80ms; }
+.modal[open] { animation: surface-enter 200ms var(--ease-out) both; }
+.modal[open]::backdrop { animation: fade-in 200ms ease both; }
+.modal.closing { animation: surface-exit 130ms ease-in both; }
+.modal.closing::backdrop { animation: fade-out 130ms ease-in both; }
+.inspector { animation: inspector-enter 190ms var(--ease-out) both; }
+/* Opening a note: content is readable on the first frame and settles; typing is never animated. */
+.writing-surface { animation: note-enter 170ms var(--ease-out) both; }
+.welcome > * { animation: note-enter 360ms var(--ease-out) both; }
+.welcome > :nth-child(2) { animation-delay: 40ms; } .welcome > :nth-child(3) { animation-delay: 80ms; } .welcome > :nth-child(n+4) { animation-delay: 120ms; }
+.note-row, .library-nav button, .tag-filters button { transition: background-color 140ms ease, border-color 140ms ease, color 140ms ease, box-shadow 160ms ease, transform 160ms var(--ease-out); }
+.note-row:active:not(:disabled) { transform: scale(.985); transition-duration: 60ms; }
+
+/* Library: the column glides closed while its content fades first, so nothing visibly squeezes. */
+.workspace { transition: grid-template-columns 300ms var(--ease-out), padding-left 300ms var(--ease-out); }
+.library { transition: opacity 200ms ease 90ms, transform 300ms var(--ease-out), visibility 0s; }
+.library-collapsed .library { opacity: 0; transform: translateX(-18px); transition: opacity 110ms ease, transform 300ms var(--ease-out), visibility 0s linear 300ms; }
+.inspector .context-list > li { animation: list-enter 220ms var(--ease-out) both; }
+.inspector .context-list > li:nth-child(2) { animation-delay: 25ms; } .inspector .context-list > li:nth-child(3) { animation-delay: 50ms; } .inspector .context-list > li:nth-child(n+4) { animation-delay: 70ms; }
+.tag-filters button[aria-pressed='true'] { animation: chip-press 220ms var(--ease-lens); }
+.editor-notice, .notice, .error-banner { animation: note-enter 220ms var(--ease-out) both; }
+.save-state .local-dot { transition: background-color 240ms ease; }
+.save-state.active .local-dot { animation: pulse-dot 1100ms ease-in-out infinite alternate; }
+@keyframes surface-enter { from { opacity: 0; transform: translateY(7px) scale(.99); } to { opacity: 1; transform: none; } }
+@keyframes inspector-enter { from { opacity: 0; transform: translateX(8px); } to { opacity: 1; transform: none; } }
+@keyframes note-enter { from { opacity: .55; transform: translateY(3px); } to { opacity: 1; transform: none; } }
+@keyframes surface-exit { to { opacity: 0; transform: translateY(4px) scale(.985); } }
+@keyframes fade-in { from { opacity: 0; } }
+@keyframes fade-out { to { opacity: 0; } }
+@keyframes list-enter { from { opacity: 0; transform: translateY(4px); } }
+@keyframes chip-press { 40% { transform: scale(.94); } }
+@keyframes sheet-enter { from { opacity: 0; transform: translateY(10px) scale(.985); } }
+@keyframes pulse-dot { from { opacity: 1; } to { opacity: .35; } }
+@supports (backdrop-filter: blur(8px)) {
+  /* Glass only on small floating chrome; nothing that scrolls sits under a blur. */
+  .format-bubble, .slash-menu, .typography-panel, .menu-panel { backdrop-filter: blur(22px) saturate(1.4); -webkit-backdrop-filter: blur(22px) saturate(1.4); }
+}
+@media (prefers-reduced-transparency: reduce) {
+  .format-bubble, .slash-menu, .typography-panel, .menu-panel { background: var(--surface); backdrop-filter: none; -webkit-backdrop-filter: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition: none !important; animation: none !important; scroll-behavior: auto !important; }
+  .new-note:hover:not(:disabled), .new-note:active:not(:disabled), .welcome .primary:hover:not(:disabled), .welcome .primary:active:not(:disabled) { transform: none; }
+}

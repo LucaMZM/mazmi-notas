@@ -1,0 +1,12 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+@import './styles/tokens.css';
+@import './styles/base.css';
+@import './styles/workspace.css';
+@import './styles/editor.css';
+@import './styles/overlays.css';
+@import './styles/lock.css';
+@import './styles/responsive.css';
+@import './styles/motion.css';
+

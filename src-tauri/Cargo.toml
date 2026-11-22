@@ -1,0 +1,48 @@
+[package]
+name = "mazminotas"
+version = "0.4.0"
+description = "MazmiNotas - notas locales para escribir, organizar y recuperar"
+authors = ["MAZMI"]
+license = ""
+repository = ""
+edition = "2021"
+rust-version = "1.77.2"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[lib]
+name = "app_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2.5.4", features = [] }
+
+[dependencies]
+serde_json = "1.0"
+serde = { version = "1.0", features = ["derive"] }
+log = "0.4"
+tauri = { version = "2.10.0", features = [] }
+tauri-plugin-log = "2"
+tauri-plugin-dialog = "2"
+tauri-plugin-sql = { version = "2", features = ["sqlite"] }
+rusqlite = { version = "0.31", features = ["bundled"] }
+# Reminder times: wall-clock time in an IANA zone, DST-aware.
+chrono = { version = "0.4", default-features = false, features = ["std", "clock"] }
+chrono-tz = { version = "0.10", default-features = false, features = ["std"] }
+# Images: content-addressed names and self-contained backups.
+sha2 = "0.10"
+base64 = "0.22"
+# Password-protected notes: Argon2id key derivation + XChaCha20-Poly1305 (pure Rust, RustCrypto).
+argon2 = "0.5"
+chacha20poly1305 = "0.10"
+zeroize = "1"
+
+[target.'cfg(target_os = "windows")'.dependencies]
+windows = { version = "0.61", features = ["Data_Xml_Dom", "Foundation", "Foundation_Collections", "UI_Notifications", "Win32_Foundation", "Win32_System_Registry"] }
+
+# Native, OS-persisted notifications (delivered even when the app is not running).
+[target.'cfg(target_os = "macos")'.dependencies]
+objc2 = "0.6"
+block2 = "0.6"
+objc2-foundation = { version = "0.3", features = ["NSString", "NSDictionary", "NSArray", "NSError", "NSCalendar", "NSDate", "NSTimeZone", "NSObject", "NSSet", "NSValue", "block2"] }
+objc2-user-notifications = { version = "0.3", default-features = false, features = ["std", "bitflags", "block2", "UNUserNotificationCenter", "UNNotificationRequest", "UNNotificationContent", "UNNotificationTrigger", "UNNotificationSound", "UNNotification", "UNNotificationResponse", "UNNotificationSettings"] }

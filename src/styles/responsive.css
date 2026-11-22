@@ -1,0 +1,107 @@
+@media (max-width: 1200px) {
+  .workspace { --library-width: 260px; }
+  .library { padding-inline: 16px; }
+  .header-actions kbd { display: none; }
+  .document-heading { padding: 36px 36px 20px; }
+  .editor-bar, .editor-notice { padding-inline: 36px; }
+  .document-body { padding: 24px 36px 30vh; }
+  .inspector { width: 250px; padding: 22px 18px; }
+  .with-inspector .document-heading, .with-inspector .document-body, .with-inspector .editor-bar { padding-inline: 24px; }
+  .with-inspector .editor-hint { display: none; }
+  .with-inspector .editor-bar .typography { margin-left: auto; }
+  .breadcrumb strong { display: none; }
+  .document-actions button { font-size: 10px; padding-inline: 5px; }
+  .document-actions button svg { display: none; }
+}
+@media (max-width: 1000px) {
+  .with-inspector { position: relative; }
+  .inspector { position: absolute; right: 0; top: 0; bottom: 0; width: min(300px, 90%); box-shadow: var(--shadow-float); z-index: 5; }
+  .document-header { padding: 12px 16px; gap: 8px; }
+  .header-actions { gap: 2px; }
+  .header-actions button { padding-inline: 8px; }
+  .document-footer { padding-inline: 15px; gap: 8px; }
+  .document-actions { width: 100%; margin-left: 0; gap: 4px; }
+  .document-heading { padding-top: 28px; }
+  .title-input { font-size: 30px; letter-spacing: -1px; }
+}
+@media (max-width: 800px) {
+  .workspace { --library-width: 224px; padding: 8px 8px 8px 0; }
+  .library { padding: 15px 12px 10px; }
+  .brand { gap: 8px; padding: 1px 4px 20px; }
+  .brand-symbol { width: 35px; height: 35px; }
+  .brand h1 { font-size: 16px; }
+  .brand p { font-size: 10px; }
+  .new-note kbd { display: none; }
+  .search-box { margin-bottom: 15px; }
+  .search-box kbd { display: none; }
+  .breadcrumb { display: none; }
+  .document-heading { padding: 24px 26px 15px; }
+  .document-kicker { margin-bottom: 8px; }
+  .title-input { font-size: 27px; }
+  .note-tags { margin-top: 9px; gap: 10px; }
+  .editor-bar, .editor-notice { padding: 0 26px 12px; }
+  .editor-hint { display: none; }
+  .editor-bar .typography { margin-left: auto; }
+  .segmented button { font-size: 10px; padding-inline: 9px; }
+  .document-body { padding: 21px 26px 30vh; }
+  .library-footer p { font-size: 9px; margin-inline: 8px; }
+  .list-heading { margin-top: 18px; }
+}
+@media (max-width: 700px) {
+  .workspace, .workspace.library-collapsed { grid-template-columns: minmax(0, 1fr); padding: 6px; }
+  .library, .library-collapsed .library { display: none; visibility: visible; }
+  .library-open .library { animation: sheet-enter 220ms var(--ease-out) both; }
+  .library-open .library { display: flex; position: fixed; inset: 70px 12px 12px; z-index: 10; border: 1px solid var(--line); border-radius: var(--radius-lg); box-shadow: var(--shadow-modal); background: var(--surface); padding: 18px; }
+  .library-open .brand { display: none; }
+  .library-open .library { width: auto; }
+  .desktop-library-toggle { display: none; }
+  .library-toggle { display: inline-flex; font-size: 11px; padding: 7px 9px; background: transparent; border-color: transparent; }
+  .document-header { min-height: 57px; padding: 10px 12px; gap: 3px; }
+  .header-actions button { padding: 6px; font-size: 10px; }
+  .header-actions button svg { width: 16px; height: 16px; }
+  .browser-banner { padding: 7px 18px; font-size: 9px; }
+  .document-heading { padding: 24px 22px 14px; }
+  .title-input { font-size: 27px; }
+  .editor-bar, .editor-notice { padding: 0 22px 12px; }
+  .document-body { padding: 22px 22px 30vh; }
+  .typography-panel { width: min(300px, calc(100vw - 40px)); }
+  .document-actions { gap: 0; }
+  .document-actions button { font-size: 9px; padding-inline: 6px; }
+  .document-footer { gap: 6px 12px; padding-block: 8px; }
+  .document-kicker { font-size: 10px; }
+  .note-tags > span { font-size: 10px; }
+  .note-tags input { font-size: 11px; }
+  .welcome { padding: 30px; }
+  .welcome-symbol { width: 80px; height: 80px; margin-bottom: 26px; border-radius: 24px; }
+  .welcome-symbol img { width: 56px; height: 56px; }
+  .welcome h2 { font-size: 34px; letter-spacing: -1.2px; }
+  .welcome-shortcuts { margin-top: 30px; gap: 14px; }
+  .modal-surface { padding: 22px; }
+}
+@media (max-height: 650px) {
+  .brand { padding-bottom: 14px; }
+  .search-box { margin-top: 12px; margin-bottom: 12px; }
+  .library-nav button { min-height: 35px; padding-block: 7px; }
+  .tag-filters { max-height: 52px; padding-top: 10px; }
+  .list-heading { margin-top: 13px; padding-bottom: 8px; }
+  .library-footer { padding-top: 7px; }
+  .library-footer button { min-height: 32px; padding-block: 5px; }
+  .library-footer p { margin-top: 6px; }
+  .document-header { min-height: 55px; padding-block: 9px; }
+  .document-heading { padding-top: 20px; padding-bottom: 12px; }
+  .document-kicker { margin-bottom: 6px; }
+  .note-tags { margin-top: 6px; }
+  .editor-bar { padding-bottom: 10px; }
+  .welcome-symbol { width: 68px; height: 68px; margin-bottom: 20px; border-radius: 20px; }
+  .welcome-symbol img { width: 48px; height: 48px; }
+  .welcome h2 { font-size: 34px; }
+  .welcome p { margin-block: 16px; }
+  .welcome-shortcuts { margin-top: 24px; }
+}
+@media (max-height: 650px) {
+  .library-nav { --nav-height: 35px; }
+}
+@media (max-height: 650px) {
+  .document-kicker { display: none; }
+  .document-heading { padding-top: 14px; padding-bottom: 10px; }
+}
